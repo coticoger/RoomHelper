@@ -441,8 +441,8 @@ function App() {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">⌂</span><div><strong>Room Helper</strong><span>집을 먼저 살아보는 방법</span></div></div>
-        <div className="topbar-actions"><button className="help-button" aria-label="Room Helper 사용 방법 열기" aria-haspopup="dialog" aria-expanded={showHelp} onClick={() => setShowHelp(true)}>?</button><div className="topbar-status"><span className={`status-dot ${saveStatus}`} />{statusLabel[saveStatus]}</div></div>
+        <div className="brand"><span className="brand-mark">⌂</span><div><strong>Room Helper</strong><span>쉽고 편하게 집꾸하자!</span></div></div>
+        <div className="topbar-actions"><div className="topbar-status"><span className={`status-dot ${saveStatus}`} />{statusLabel[saveStatus]}</div><button className="help-button" aria-label="Room Helper 사용 방법 열기" aria-haspopup="dialog" aria-expanded={showHelp} onClick={() => setShowHelp(true)}>?</button></div>
       </header>
 
       <section className="workspace">
@@ -455,10 +455,10 @@ function App() {
           {floorSize && <div className="plan-meta"><span>원본 크기</span><strong>{floorSize.width.toLocaleString()} × {floorSize.height.toLocaleString()} px</strong></div>}
 
           <div className="section-divider" />
-          <div className="panel-heading compact"><div><span className="eyebrow">02 · SCALE</span><h2>실제 크기 맞추기</h2></div></div>
-          <p className="helper-text">도면의 치수선 양 끝을 찍고 표시된 길이를 입력하세요. 가로와 세로를 여러 개 등록할수록 정확해집니다.</p>
+          <div className="panel-heading compact"><div><span className="eyebrow">02 · SCALE</span><h2>방 크기 맞추기</h2></div></div>
+          <p className="helper-text">도면의 치수선 양 끝을 찍고 표시된 길이를 입력하세요. <br/>가로와 세로를 여러 개 등록할수록 정확해집니다.</p>
           <button className={`outline-button full mode-button ${canvasMode === "calibrate" ? "active" : ""}`} disabled={!floorSize} onClick={() => toggleCanvasMode("calibrate")}>
-            {canvasMode === "calibrate" ? "기준선 선택 취소" : "＋ 축척 기준선 추가"}
+            {canvasMode === "calibrate" ? "기준선 선택 취소" : "축척 기준선 추가"}
           </button>
           {canvasMode === "calibrate" && <>
             <div className="calibration-tip">치수선의 첫 번째 끝점과 두 번째 끝점을 차례로 선택하세요. 방향은 자동 판별됩니다.</div>
@@ -476,7 +476,7 @@ function App() {
             {project.floorPlan.calibrationReferences.map((reference, index) => <div key={reference.id}><span><i className={reference.axis} />{index + 1}. {reference.axis === "horizontal" ? "가로" : "세로"} {(reference.enteredLength ?? reference.actualLengthCm).toLocaleString()}{reference.enteredUnit ?? "cm"}</span><button aria-label="축척 기준선 삭제" onClick={() => deleteCalibrationReference(reference.id)}>×</button></div>)}
           </div>}
           <button className={`outline-button full mode-button ${canvasMode === "measure" ? "active" : ""}`} disabled={!project.floorPlan.scale} onClick={() => toggleCanvasMode("measure")}>
-            {canvasMode === "measure" ? "측정 취소" : "↔ 도면의 다른 길이 재기"}
+            {canvasMode === "measure" ? "측정 취소" : "길이 추가하기"}
           </button>
           {canvasMode === "measure" && <div className="calibration-tip">궁금한 구간의 양 끝을 선택하면 실제 길이를 계산해 저장합니다.</div>}
           {project.floorPlan.measurements.length > 0 && <div className="mini-list measurements">
@@ -485,9 +485,9 @@ function App() {
 
           <div className="section-divider" />
           <div className="panel-heading compact"><div><span className="eyebrow">03 · FLOOR AREA</span><h2>배치 영역 그리기</h2></div></div>
-          <p className="helper-text">방 안쪽 모서리를 차례로 찍어 벽 안의 공간을 만드세요. 벽으로 나뉜 방은 따로 그립니다.</p>
+          <p className="helper-text">방 안쪽 모서리를 차례로 찍어 벽 안의 공간을 만드세요. <br/> 벽으로 나뉜 방은 따로 그립니다.</p>
           <button className={`outline-button full mode-button ${canvasMode === "zone" ? "active" : ""}`} disabled={!floorSize} onClick={() => toggleCanvasMode("zone")}>
-            {canvasMode === "zone" ? "영역 그리기 취소" : "▱ 새 배치 영역 그리기"}
+            {canvasMode === "zone" ? "영역 그리기 취소" : "새 배치 영역 그리기"}
           </button>
           {canvasMode === "zone" && <div className="zone-editor">
             <div className="calibration-tip">각 모서리를 순서대로 선택한 뒤 완료하세요. 현재 {drawingPoints.length}개 점</div>
@@ -505,7 +505,7 @@ function App() {
           <p className="helper-text">가구의 실제 가로·세로를 입력하면 오른쪽 목록에 추가됩니다.</p>
           <button className="primary-button full add-button" onClick={() => setIsAdding(true)}>＋ 가구 추가하기</button>
 
-          <div className="sidebar-footer"><span className="local-lock">▣</span><span>모든 정보는 이 컴퓨터의<br /><strong>data/project.json</strong>에 저장됩니다.</span></div>
+          <div className="sidebar-footer"><span>모든 정보는 이 컴퓨터의<br /><strong>data/project.json</strong>에 저장됩니다.</span></div>
         </aside>
 
         <section className="canvas-column">
@@ -573,6 +573,7 @@ function App() {
           {selectedFurniture && <div className="selected-actions"><div><span className="eyebrow">SELECTED</span><strong>{selectedFurniture.name}</strong></div>{!selectedFurniture.placement && <button className="outline-button" onClick={addAtCanvasCenter} disabled={!project.floorPlan.scale || canvasMode !== "idle"}>캔버스 중앙에 놓기</button>}</div>}
         </aside>
       </section>
+      <footer className="app-footer">made by coticoger</footer>
       {showHelp && <div className="help-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowHelp(false); }}>
         <section className="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
           <div className="help-modal-header"><div><span className="eyebrow">QUICK GUIDE</span><h2 id="help-title">처음이라면 이렇게 사용하세요</h2></div><button className="modal-close" aria-label="사용 방법 닫기" onClick={() => setShowHelp(false)}>×</button></div>

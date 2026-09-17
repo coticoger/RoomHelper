@@ -20,7 +20,7 @@ button, input, select { font: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: .45; }
 
-.app-shell { min-height: 100vh; background: radial-gradient(circle at 45% -20%, #233854 0, #101827 45%); }
+.app-shell { display: flex; min-height: 100vh; flex-direction: column; background: radial-gradient(circle at 45% -20%, #233854 0, #101827 45%); }
 .topbar { height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; border-bottom: 1px solid var(--line); background: rgba(14, 23, 37, .72); }
 .topbar-actions { display: flex; align-items: center; gap: 12px; }
 .help-button { display: grid; width: 29px; height: 29px; place-items: center; padding: 0; color: #dbe2ff; border: 1px solid rgba(127, 145, 255, .45); border-radius: 50%; background: rgba(127, 145, 255, .12); font-size: 14px; font-weight: 700; }
@@ -36,7 +36,7 @@ button:disabled { cursor: not-allowed; opacity: .45; }
 .status-dot.error { background: var(--red); }
 @keyframes pulse { 50% { opacity: .35; } }
 
-.workspace { display: grid; grid-template-columns: 255px minmax(560px, 1fr) 295px; min-height: calc(100vh - 76px); }
+.workspace { display: grid; flex: 1; grid-template-columns: 255px minmax(560px, 1fr) 295px; min-height: calc(100vh - 76px); }
 .sidebar { padding: 28px 20px 20px; background: rgba(24, 35, 51, .84); }
 .left-sidebar { border-right: 1px solid var(--line); }
 .right-sidebar { border-left: 1px solid var(--line); }
@@ -97,6 +97,7 @@ select { appearance: auto; }
 .sidebar-footer { display: flex; gap: 8px; align-items: flex-start; margin-top: 42px; padding: 12px 3px; color: #748296; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; }
 .sidebar-footer strong { color: #aab6c8; font-weight: 500; }
 .local-lock { color: #7e8eff; font-size: 15px; }
+.app-footer { flex: none; padding: 11px 24px 13px; color: #7f8da2; border-top: 1px solid var(--line); background: rgba(14, 23, 37, .72); font-size: 10px; letter-spacing: .04em; text-align: center; }
 
 .canvas-column { min-width: 0; padding: 28px 28px 20px; background: #121d2d; }
 .canvas-toolbar { display: flex; align-items: flex-end; justify-content: space-between; margin: 0 auto 17px; max-width: 1080px; }
