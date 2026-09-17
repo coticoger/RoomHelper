@@ -1,0 +1,29 @@
+{
+  "name": "roomhelper",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "npm run build:shared && concurrently -k \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "node --import tsx/esm server/src/index.ts",
+    "client:dev": "vite --config client/vite.config.ts",
+    "build": "npm run build:shared && npm run build:server && npm run build:client",
+    "build:shared": "tsc -p shared/tsconfig.json",
+    "build:server": "tsc -p server/tsconfig.json",
+    "build:client": "tsc -p client/tsconfig.json && vite build --config client/vite.config.ts",
+    "start": "node server/dist/index.js",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}

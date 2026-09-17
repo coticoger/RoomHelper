@@ -1,0 +1,10 @@
+node_modules/
+dist/
+client/dist/
+server/dist/
+shared/dist/
+data/*
+!data/.gitkeep
+*.log
+.DS_Store
+AGENTS.md
